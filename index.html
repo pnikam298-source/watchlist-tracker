@@ -27,18 +27,44 @@ html{background:var(--bg)}
 body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;padding-bottom:calc(24px + env(safe-area-inset-bottom,0px))}
 .shell{max-width:960px;margin:0 auto;padding:0 16px}
 
+/* Setup screen */
+.setup-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px 16px}
+.setup-card{background:var(--surface);border:.5px solid var(--border2);border-radius:var(--radius-lg);padding:28px 24px;width:100%;max-width:480px}
+.setup-logo{font-size:32px;margin-bottom:16px}
+.setup-title{font-size:20px;font-weight:600;margin-bottom:6px;letter-spacing:-.3px}
+.setup-sub{font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+.setup-input-wrap{margin-bottom:12px}
+.setup-label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-weight:500;margin-bottom:6px;display:block}
+.setup-input{width:100%;background:var(--surface2);border:.5px solid var(--border2);border-radius:var(--radius);padding:11px 14px;font-size:13px;color:var(--text);outline:none;font-family:var(--mono);transition:border-color .15s}
+.setup-input:focus{border-color:rgba(88,166,255,.4)}
+.setup-input::placeholder{color:var(--hint)}
+.setup-hint{font-size:11px;color:var(--hint);margin-top:5px;line-height:1.5}
+.sync-status{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:var(--radius);font-size:12px;margin-bottom:14px}
+.sync-status.connected{background:var(--green-bg);border:.5px solid rgba(63,185,80,.2);color:var(--green-text)}
+.sync-status.disconnected{background:var(--surface2);border:.5px solid var(--border);color:var(--muted)}
+.sync-status.syncing{background:var(--blue-bg);border:.5px solid rgba(88,166,255,.2);color:var(--blue-text)}
+.sync-status.error{background:var(--red-bg);border:.5px solid rgba(248,81,73,.2);color:var(--red)}
+.sync-dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex-shrink:0}
+.sync-dot.pulse{animation:pulse 1.5s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
 /* Header */
 .header{padding:20px 0 0;margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
-.app-title{font-size:22px;font-weight:600;letter-spacing:-.3px}
-.app-sub{font-size:13px;color:var(--muted);margin-top:2px}
-.week-pill{background:var(--surface2);border:.5px solid var(--border2);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--muted);font-family:var(--mono);white-space:nowrap;margin-top:4px;flex-shrink:0}
+.app-title{font-size:20px;font-weight:600;letter-spacing:-.3px}
+.app-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.header-right{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.week-pill{background:var(--surface2);border:.5px solid var(--border2);border-radius:20px;padding:4px 10px;font-size:11px;color:var(--muted);font-family:var(--mono);white-space:nowrap}
+.sync-pill{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;font-size:11px;cursor:pointer;border:none;font-family:var(--font)}
+.sync-pill.connected{background:var(--green-bg);color:var(--green-text);border:.5px solid rgba(63,185,80,.2)}
+.sync-pill.syncing{background:var(--blue-bg);color:var(--blue-text);border:.5px solid rgba(88,166,255,.2)}
+.sync-pill.error{background:var(--red-bg);color:var(--red);border:.5px solid rgba(248,81,73,.2)}
+.sync-pill svg{width:11px;height:11px}
 
 /* Tabs */
 .tab-bar{display:flex;background:var(--surface);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:4px;gap:2px;margin-bottom:20px}
 .tab{flex:1;padding:9px 4px;font-size:12px;font-weight:500;border:none;border-radius:var(--radius);background:transparent;color:var(--muted);cursor:pointer;text-align:center;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:4px;font-family:var(--font)}
 .tab svg{width:13px;height:13px;flex-shrink:0}
 .tab.active{background:var(--surface2);color:var(--text);border:.5px solid var(--border2)}
-.tab:active{opacity:.7}
 .section{display:none}.section.active{display:block}
 
 /* Card */
@@ -60,7 +86,7 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:poi
 .form-row{margin-top:10px}
 .form-label{font-size:11px;color:var(--muted);margin-bottom:5px;display:block;text-transform:uppercase;letter-spacing:.4px}
 
-/* Priority buttons */
+/* Priority */
 .p-btns{display:flex;gap:6px}
 .p-btn{flex:1;padding:8px 4px;font-size:12px;font-weight:500;border-radius:var(--radius);border:.5px solid var(--border2);background:var(--surface2);color:var(--muted);cursor:pointer;text-align:center;transition:all .15s;font-family:var(--font)}
 .p-btn.active-high{background:var(--red-bg);color:var(--red);border-color:rgba(248,81,73,.3)}
@@ -79,16 +105,13 @@ input[type=date]::-webkit-calendar-picker-indicator{filter:invert(.5);cursor:poi
 /* Preview */
 .preview-box{display:none;border:.5px solid rgba(88,166,255,.2);border-radius:var(--radius);margin-top:10px;overflow:hidden}
 .preview-box.show{display:block}
-
-/* Date group in preview */
-.date-group{margin-bottom:2px}
-.date-group-header{background:var(--surface2);border-bottom:.5px solid var(--border);padding:8px 14px;font-size:11px;color:var(--blue-text);font-weight:600;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
+.preview-header-row{background:var(--surface2);border-bottom:.5px solid var(--border2);padding:9px 14px;font-size:12px;color:var(--blue-text);font-weight:500;display:flex;align-items:center;gap:6px}
+.date-group-hdr{background:var(--surface2);border-bottom:.5px solid var(--border);padding:8px 14px;font-size:11px;color:var(--blue-text);font-weight:600;letter-spacing:.4px;text-transform:uppercase;display:flex;align-items:center;gap:6px}
 .preview-item{display:flex;align-items:center;padding:8px 14px;border-bottom:.5px solid var(--border);gap:10px;background:var(--surface)}
 .preview-item:last-child{border-bottom:none}
 .preview-sym{font-family:var(--mono);font-size:13px;font-weight:700;color:var(--text);min-width:90px}
 .preview-name{font-size:12px;color:var(--muted);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .preview-chg{font-size:12px;color:var(--green-text);font-family:var(--mono);white-space:nowrap}
-.preview-header-row{background:var(--surface2);border-bottom:.5px solid var(--border2);padding:9px 14px;font-size:12px;color:var(--blue-text);font-weight:500;display:flex;align-items:center;gap:6px}
 
 /* Stats */
 .stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}
@@ -136,25 +159,23 @@ tbody td:last-child{text-align:right}
 /* Archive */
 .week-group{margin-bottom:14px}
 .week-group-hdr{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;background:var(--surface2);border:.5px solid var(--border2);border-radius:var(--radius);margin-bottom:8px;cursor:pointer;user-select:none}
-.week-group-hdr:hover{border-color:var(--border2)}
 .wg-title{font-size:13px;font-weight:500;font-family:var(--mono)}
 .wg-meta{font-size:12px;color:var(--muted)}
 
-/* Export date picker modal */
+/* Modals */
 .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:200;align-items:flex-end;justify-content:center}
 .modal-overlay.show{display:flex}
-.modal{background:var(--surface);border:.5px solid var(--border2);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;max-height:80vh;overflow-y:auto}
+.modal{background:var(--surface);border:.5px solid var(--border2);border-radius:var(--radius-lg) var(--radius-lg) 0 0;padding:20px 20px calc(20px + env(safe-area-inset-bottom,0px));width:100%;max-width:560px;max-height:85vh;overflow-y:auto}
 .modal-title{font-size:16px;font-weight:600;margin-bottom:4px}
-.modal-sub{font-size:13px;color:var(--muted);margin-bottom:16px}
+.modal-sub{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.5}
 .modal-btns{display:flex;gap:10px;margin-top:14px}
 .modal-btns button{flex:1;padding:12px;font-size:13px;font-weight:500;border-radius:var(--radius);cursor:pointer;border:.5px solid var(--border2);background:var(--surface2);color:var(--text);font-family:var(--font)}
-.modal-btns button:active{opacity:.7}
 .modal-save{background:var(--green-bg)!important;color:var(--green-text)!important;border-color:rgba(63,185,80,.3)!important}
 .modal-del{background:var(--red-bg)!important;color:var(--red)!important;border-color:rgba(248,81,73,.3)!important}
 .modal-purple{background:var(--purple-bg)!important;color:var(--purple)!important;border-color:rgba(188,140,255,.3)!important}
 
-/* Date checkboxes for export */
-.date-check-list{display:flex;flex-direction:column;gap:6px;max-height:260px;overflow-y:auto;margin:10px 0}
+/* Export date picker */
+.date-check-list{display:flex;flex-direction:column;gap:6px;max-height:240px;overflow-y:auto;margin:10px 0}
 .date-check-item{display:flex;align-items:center;gap:10px;padding:9px 12px;background:var(--surface2);border:.5px solid var(--border);border-radius:var(--radius);cursor:pointer;transition:border-color .15s}
 .date-check-item:hover{border-color:var(--border2)}
 .date-check-item input[type=checkbox]{width:16px;height:16px;accent-color:var(--blue);cursor:pointer;flex-shrink:0}
@@ -162,7 +183,6 @@ tbody td:last-child{text-align:right}
 .date-check-count{font-size:12px;color:var(--muted);font-family:var(--mono)}
 .select-all-row{display:flex;gap:8px;margin-bottom:8px}
 .small-btn{padding:5px 12px;font-size:12px;border-radius:var(--radius);border:.5px solid var(--border2);background:transparent;color:var(--muted);cursor:pointer;font-family:var(--font)}
-.small-btn:hover{color:var(--text);border-color:var(--border2)}
 
 /* Toast */
 .toast{position:fixed;bottom:calc(24px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%) translateY(16px);background:var(--surface2);color:var(--text);border:.5px solid var(--border2);border-radius:20px;padding:9px 18px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;pointer-events:none;white-space:nowrap;z-index:999;box-shadow:0 4px 24px rgba(0,0,0,.5)}
@@ -178,6 +198,10 @@ tbody td:last-child{text-align:right}
 .sec-heading{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.6px;font-weight:500;margin-bottom:8px}
 .info-box{background:var(--surface2);border:.5px solid var(--border);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--muted);line-height:1.7}
 
+/* Loading spinner */
+.spinner{width:18px;height:18px;border:2px solid var(--border2);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
+@keyframes spin{to{transform:rotate(360deg)}}
+
 @media(max-width:599px){
   .stats-row{grid-template-columns:1fr 1fr}
   .form-grid{grid-template-columns:1fr}
@@ -187,12 +211,38 @@ tbody td:last-child{text-align:right}
 @media(min-width:600px){
   .shell{padding:0 28px}
   .header{padding-top:28px;margin-bottom:24px}
-  .td-name{max-width:220px}
-  .td-note{max-width:200px}
 }
 </style>
 </head>
 <body>
+
+<!-- SETUP SCREEN -->
+<div id="setup-screen" class="setup-screen" style="display:none">
+  <div class="setup-card">
+    <div class="setup-logo">📈</div>
+    <div class="setup-title">Connect Google Sheets</div>
+    <div class="setup-sub">Paste your Apps Script Web App URL below to enable cross-device sync. Your data will be stored in your Google Sheet and sync across all devices instantly.</div>
+
+    <div class="setup-input-wrap">
+      <span class="setup-label">Apps Script Web App URL</span>
+      <input class="setup-input" type="text" id="setup-url-input" placeholder="https://script.google.com/macros/s/…/exec">
+      <div class="setup-hint">You'll get this URL after deploying the Apps Script. See the guide below the app.</div>
+    </div>
+
+    <button class="btn btn-green" style="margin-top:14px" onclick="saveScriptUrl()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+      Connect & Start
+    </button>
+
+    <div style="margin-top:14px;padding:12px;background:var(--surface2);border:.5px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--muted);line-height:1.7">
+      <strong style="color:var(--text)">Don't have the URL yet?</strong><br>
+      Follow the setup guide on your GitHub Pages page after uploading this file. Takes about 3 minutes.
+    </div>
+  </div>
+</div>
+
+<!-- MAIN APP -->
+<div id="main-app" style="display:none">
 <div class="shell">
 
   <div class="header">
@@ -200,7 +250,13 @@ tbody td:last-child{text-align:right}
       <div class="app-title">Watchlist Tracker</div>
       <div class="app-sub" id="date-label"></div>
     </div>
-    <div class="week-pill" id="week-label"></div>
+    <div class="header-right">
+      <div class="week-pill" id="week-label"></div>
+      <button class="sync-pill connected" id="sync-pill" onclick="switchTab('manage')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg>
+        <span id="sync-pill-text">Synced</span>
+      </button>
+    </div>
   </div>
 
   <div class="tab-bar">
@@ -242,7 +298,7 @@ tbody td:last-child{text-align:right}
         </div>
       </div>
       <div class="form-row">
-        <span class="form-label">Notes (applies to all stocks in this paste)</span>
+        <span class="form-label">Notes</span>
         <input type="text" id="note-input" placeholder="e.g. breakout from resistance, volume surge…">
       </div>
     </div>
@@ -308,6 +364,24 @@ tbody td:last-child{text-align:right}
 
   <!-- MANAGE TAB -->
   <div id="tab-manage" class="section">
+
+    <div class="sec-heading">Sync status</div>
+    <div class="card" style="margin-bottom:14px">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px">
+        <span style="font-size:13px;font-weight:500">Google Sheets sync</span>
+        <div id="manage-sync-status" class="sync-status connected"><div class="sync-dot"></div><span>Connected</span></div>
+      </div>
+      <div style="font-size:12px;color:var(--muted);margin-bottom:10px" id="script-url-display"></div>
+      <button class="btn" onclick="showChangeUrl()" style="margin-top:0">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Change Script URL
+      </button>
+      <button class="btn btn-accent" onclick="forceSyncFromSheet()" style="margin-top:8px">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.1"/></svg>
+        Force sync from Google Sheet
+      </button>
+    </div>
+
     <div class="sec-heading">Delete</div>
     <button class="btn" onclick="showConfirm('week')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
@@ -315,24 +389,25 @@ tbody td:last-child{text-align:right}
     </button>
     <button class="btn btn-danger" style="margin-top:8px" onclick="showConfirm('all')">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M9 6V4h6v2"/></svg>
-      Delete all data
+      Delete all data (all devices)
     </button>
+
     <hr class="divider">
     <div class="sec-heading">Export</div>
     <button class="btn btn-purple" onclick="openExportModal()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
       Export to Excel (select dates)
     </button>
-    <button class="btn" onclick="exportCSV()" style="margin-top:8px">
+    <button class="btn" style="margin-top:8px" onclick="exportCSV()">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Export this week as CSV
     </button>
     <hr class="divider">
-    <div class="sec-heading">About</div>
-    <div class="info-box">Data saved in browser local storage.<br>Works offline. No account needed.<br>Add to home screen for app-like experience.</div>
+    <div class="info-box">Data syncs to your Google Sheet in real time.<br>Same data on all devices automatically.<br>Delete actions also sync across devices.</div>
   </div>
 
 </div><!-- /shell -->
+</div><!-- /main-app -->
 
 <!-- Edit Modal -->
 <div class="modal-overlay" id="edit-overlay">
@@ -346,7 +421,7 @@ tbody td:last-child{text-align:right}
       <button class="p-btn" data-p="Watch" onclick="selectP(this,'edit')">🔵 Watch</button>
     </div>
     <span class="form-label">Notes</span>
-    <input type="text" id="edit-note" placeholder="Add notes…" style="margin-bottom:4px">
+    <input type="text" id="edit-note" placeholder="Add notes…">
     <div class="modal-btns">
       <button onclick="hideEditModal()">Cancel</button>
       <button class="modal-save" onclick="saveEdit()">Save</button>
@@ -366,28 +441,33 @@ tbody td:last-child{text-align:right}
   </div>
 </div>
 
+<!-- Change URL Modal -->
+<div class="modal-overlay" id="change-url-overlay">
+  <div class="modal" style="max-width:480px">
+    <div class="modal-title">Change Script URL</div>
+    <div class="modal-sub">Paste your new Apps Script Web App URL</div>
+    <input type="text" id="change-url-input" placeholder="https://script.google.com/macros/s/…/exec">
+    <div class="modal-btns">
+      <button onclick="hideChangeUrl()">Cancel</button>
+      <button class="modal-save" onclick="applyNewUrl()">Save & Reconnect</button>
+    </div>
+  </div>
+</div>
+
 <!-- Export Modal -->
 <div class="modal-overlay" id="export-overlay">
   <div class="modal">
     <div class="modal-title">Export to Excel</div>
-    <div class="modal-sub">Select the dates you want to include in the export</div>
-
+    <div class="modal-sub">Select the dates to include in your export</div>
     <div class="select-all-row">
       <button class="small-btn" onclick="selectAllDates(true)">Select all</button>
       <button class="small-btn" onclick="selectAllDates(false)">Deselect all</button>
     </div>
-
     <div class="date-check-list" id="export-date-list"></div>
-
-    <div style="margin-top:12px;padding:10px 12px;background:var(--surface2);border:.5px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--muted)" id="export-summary">
-      Select dates above to preview export
-    </div>
-
+    <div style="margin-top:10px;padding:10px 12px;background:var(--surface2);border:.5px solid var(--border);border-radius:var(--radius);font-size:12px;color:var(--muted)" id="export-summary">Select dates above</div>
     <div class="modal-btns">
       <button onclick="hideExportModal()">Cancel</button>
-      <button class="modal-purple" onclick="doExcelExport()">
-        Download Excel
-      </button>
+      <button class="modal-purple" onclick="doExcelExport()">Download Excel</button>
     </div>
   </div>
 </div>
@@ -395,8 +475,51 @@ tbody td:last-child{text-align:right}
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── STATE ───────────────────────────────────────────────────────────────────
 let parsedBuffer=[], pendingDelete=null, editingTicker=null, editingWeek=null, selPriority='';
+let scriptUrl='', localData=[], syncInProgress=false;
 
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+function init(){
+  scriptUrl=localStorage.getItem('wl_script_url')||'';
+  // Migrate old data from wl_v2 / wl_v3 keys
+  if(!localStorage.getItem('wl_cloud')){
+    const old=localStorage.getItem('wl_v3')||localStorage.getItem('wl_v2');
+    if(old)localStorage.setItem('wl_cloud',old);
+  }
+  localData=loadLocal();
+  if(!scriptUrl){
+    document.getElementById('setup-screen').style.display='flex';
+  } else {
+    startApp();
+  }
+}
+
+function loadLocal(){try{return JSON.parse(localStorage.getItem('wl_cloud')||'[]')}catch{return[]}}
+function saveLocal(d){localData=d;localStorage.setItem('wl_cloud',JSON.stringify(d))}
+
+function startApp(){
+  document.getElementById('setup-screen').style.display='none';
+  document.getElementById('main-app').style.display='block';
+  const now=new Date();
+  document.getElementById('date-label').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+  document.getElementById('week-label').textContent=getWeekKey();
+  document.getElementById('date-input').value=getTodayKey();
+  const urlShort=scriptUrl.length>40?scriptUrl.slice(0,38)+'…':scriptUrl;
+  document.getElementById('script-url-display').textContent=urlShort;
+  renderTodayTable();
+  syncFromSheet(); // pull latest on open
+}
+
+function saveScriptUrl(){
+  const url=document.getElementById('setup-url-input').value.trim();
+  if(!url||!url.startsWith('https://script.google.com')){showToast('Please paste a valid Apps Script URL');return}
+  scriptUrl=url;
+  localStorage.setItem('wl_script_url',url);
+  startApp();
+}
+
+// ─── UTILS ───────────────────────────────────────────────────────────────────
 function getWeekKey(date){
   const d=date||new Date();
   const jan1=new Date(d.getFullYear(),0,1);
@@ -404,31 +527,78 @@ function getWeekKey(date){
   return d.getFullYear()+'-W'+String(w).padStart(2,'0');
 }
 function getTodayKey(){return new Date().toISOString().slice(0,10)}
-function load(){try{return JSON.parse(localStorage.getItem('wl_v3')||'[]')}catch{return[]}}
-function save(d){localStorage.setItem('wl_v3',JSON.stringify(d))}
-function showToast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2400)}
+function showToast(m,dur=2400){const t=document.getElementById('toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),dur)}
+function formatDateDisplay(d){if(!d)return '';const dt=new Date(d+'T00:00:00');return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}
 
+// ─── SYNC ─────────────────────────────────────────────────────────────────────
+function setSyncStatus(state,text){
+  const pill=document.getElementById('sync-pill');
+  const pillText=document.getElementById('sync-pill-text');
+  const manage=document.getElementById('manage-sync-status');
+  pill.className='sync-pill '+state;
+  if(pillText)pillText.textContent=text;
+  if(manage){manage.className='sync-status '+state;manage.innerHTML=`<div class="sync-dot${state==='syncing'?' pulse':''}"></div><span>${text}</span>`}
+}
+
+async function syncToSheet(data){
+  if(!scriptUrl)return;
+  setSyncStatus('syncing','Syncing…');
+  try{
+    await fetch(scriptUrl,{method:'POST',headers:{'Content-Type':'text/plain'},body:JSON.stringify({action:'save',data})});
+    setSyncStatus('connected','Synced');
+  } catch(e){
+    setSyncStatus('error','Sync failed');
+    showToast('Sync failed — data saved locally');
+  }
+}
+
+async function syncFromSheet(){
+  if(!scriptUrl)return;
+  setSyncStatus('syncing','Syncing…');
+  try{
+    const res=await fetch(scriptUrl+'?action=load');
+    const json=await res.json();
+    if(json&&json.data&&Array.isArray(json.data)){
+      saveLocal(json.data);
+      renderTodayTable();
+      setSyncStatus('connected','Synced');
+    } else {
+      setSyncStatus('connected','Synced');
+    }
+  } catch(e){
+    setSyncStatus('error','Using local data');
+  }
+}
+
+async function forceSyncFromSheet(){
+  showToast('Pulling latest from Google Sheet…');
+  await syncFromSheet();
+  renderReview();
+  showToast('Sync complete');
+}
+
+// ─── TABS ────────────────────────────────────────────────────────────────────
 function switchTab(n){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
-  ['add','review','archive','manage'].forEach((t,i)=>{if(t===n){document.querySelectorAll('.tab')[i].classList.add('active');document.getElementById('tab-'+t).classList.add('active')}});
+  ['add','review','archive','manage'].forEach((t,i)=>{
+    if(t===n){document.querySelectorAll('.tab')[i].classList.add('active');document.getElementById('tab-'+t).classList.add('active')}
+  });
   if(n==='review')renderReview();
   if(n==='add')renderTodayTable();
   if(n==='archive')renderArchive();
 }
 
+// ─── PRIORITY ────────────────────────────────────────────────────────────────
 function selectP(btn,ctx){
   const container=document.getElementById(ctx==='add'?'add-priority-btns':'edit-priority-btns');
   container.querySelectorAll('.p-btn').forEach(b=>b.className='p-btn');
   const p=btn.dataset.p;
-  if(ctx==='add'){
-    selPriority=selPriority===p?'':p;
-    if(selPriority)btn.classList.add('active-'+p.toLowerCase());
-  } else {
-    btn.classList.add('active-'+p.toLowerCase());
-  }
+  if(ctx==='add'){selPriority=selPriority===p?'':p;if(selPriority)btn.classList.add('active-'+p.toLowerCase())}
+  else btn.classList.add('active-'+p.toLowerCase());
 }
 
+// ─── PARSE ───────────────────────────────────────────────────────────────────
 function parseScreenerData(raw){
   const lines=raw.split('\n').map(l=>l.trim()).filter(Boolean);
   const results=[];
@@ -469,39 +639,17 @@ function parseAndPreview(){
   if(!parsedBuffer.length){showToast('No stocks detected');return}
   const dateVal=document.getElementById('date-input').value||getTodayKey();
   const src=document.getElementById('src-input').value.trim();
-  const priority=selPriority;
-  document.getElementById('preview-title').textContent=parsedBuffer.length+' stocks detected — '+dateVal+(src?' · '+src:'')+(priority?' · '+priority:'');
-
-  // Group by date (just one date here but structure allows multi-date grouping)
-  const dateDisplay=formatDateDisplay(dateVal);
-  const items=parsedBuffer.map(s=>`
-    <div class="preview-item">
-      <span class="preview-sym">${s.ticker}</span>
-      <span class="preview-name">${s.name||'—'}</span>
-      <span class="preview-chg">${s.change||s.price||''}</span>
-    </div>`).join('');
-
-  document.getElementById('preview-list').innerHTML=`
-    <div class="date-group">
-      <div class="date-group-header">
-        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        ${dateDisplay} &nbsp;·&nbsp; ${parsedBuffer.length} stocks
-        ${src?`&nbsp;·&nbsp; <span style="color:var(--muted)">${src}</span>`:''}
-        ${priority?`&nbsp;·&nbsp; <span style="color:var(--${priority==='High'?'red':priority==='Medium'?'amber-text':'blue-text'})">${priority==='High'?'🔴':'🟡'} ${priority}</span>`:''}
-      </div>
-      ${items}
-    </div>`;
+  document.getElementById('preview-title').textContent=parsedBuffer.length+' stocks detected';
+  const items=parsedBuffer.map(s=>`<div class="preview-item"><span class="preview-sym">${s.ticker}</span><span class="preview-name">${s.name||'—'}</span><span class="preview-chg">${s.change||s.price||''}</span></div>`).join('');
+  document.getElementById('preview-list').innerHTML=`<div class="date-group-hdr">
+    <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    ${formatDateDisplay(dateVal)} &nbsp;·&nbsp; ${parsedBuffer.length} stocks${src?' &nbsp;·&nbsp; '+src:''}${selPriority?' &nbsp;·&nbsp; '+selPriority:''}
+  </div>${items}`;
   document.getElementById('preview-box').classList.add('show');
 }
 
-function formatDateDisplay(d){
-  if(!d)return '';
-  const dt=new Date(d+'T00:00:00');
-  return dt.toLocaleDateString('en-IN',{weekday:'short',day:'numeric',month:'short',year:'numeric'});
-}
-
-function confirmAdd(){
-  const data=load();
+async function confirmAdd(){
+  const data=[...localData];
   const dateVal=document.getElementById('date-input').value;
   const dateKey=dateVal||getTodayKey();
   const week=getWeekKey(dateVal?new Date(dateVal+'T00:00:00'):null);
@@ -511,21 +659,13 @@ function confirmAdd(){
   parsedBuffer.forEach(s=>{
     const ex=data.find(e=>e.ticker===s.ticker&&e.week===week);
     if(ex){
-      if(!ex.dates.includes(dateKey)){
-        ex.dates.push(dateKey);ex.count++;
-        if(s.price)ex.price=s.price;
-        if(s.change)ex.change=s.change;
-        if(src&&!ex.sources.includes(src))ex.sources.push(src);
-        if(note&&!ex.note)ex.note=note;
-        if(selPriority&&!ex.priority)ex.priority=selPriority;
-        added++;
-      } else dupes++;
+      if(!ex.dates.includes(dateKey)){ex.dates.push(dateKey);ex.count++;if(s.price)ex.price=s.price;if(s.change)ex.change=s.change;if(src&&!ex.sources.includes(src))ex.sources.push(src);if(note&&!ex.note)ex.note=note;if(selPriority&&!ex.priority)ex.priority=selPriority;added++}
+      else dupes++;
     } else {
-      data.push({ticker:s.ticker,name:s.name,price:s.price,change:s.change,week,dates:[dateKey],count:1,sources:src?[src]:[],note,priority:selPriority,addedAt:Date.now()});
-      added++;
+      data.push({ticker:s.ticker,name:s.name,price:s.price,change:s.change,week,dates:[dateKey],count:1,sources:src?[src]:[],note,priority:selPriority,addedAt:Date.now()});added++;
     }
   });
-  save(data);
+  saveLocal(data);
   document.getElementById('ticker-input').value='';
   document.getElementById('src-input').value='';
   document.getElementById('note-input').value='';
@@ -534,60 +674,39 @@ function confirmAdd(){
   document.querySelectorAll('#add-priority-btns .p-btn').forEach(b=>b.className='p-btn');
   renderTodayTable();
   showToast(added+' added'+(dupes?', '+dupes+' skipped':''));
+  await syncToSheet(data);
 }
 
-function pBadge(p){
-  if(!p)return '';
-  const cls={High:'badge-high',Medium:'badge-medium',Watch:'badge-watch'};
-  const icon={High:'🔴',Medium:'🟡',Watch:'🔵'};
-  return `<span class="badge ${cls[p]||''}">${icon[p]||''} ${p}</span>`;
-}
-function fBadge(c){
-  let cls='badge-freq';if(c>=4)cls+=' fire';else if(c>=2)cls+=' hot';
-  return `<span class="badge ${cls}">${c}×</span>`;
-}
+// ─── RENDER HELPERS ───────────────────────────────────────────────────────────
+function pBadge(p){if(!p)return '';const cls={High:'badge-high',Medium:'badge-medium',Watch:'badge-watch'};const icon={High:'🔴',Medium:'🟡',Watch:'🔵'};return`<span class="badge ${cls[p]||''}">${icon[p]||''} ${p}</span>`}
+function fBadge(c){let cls='badge-freq';if(c>=4)cls+=' fire';else if(c>=2)cls+=' hot';return`<span class="badge ${cls}">${c}×</span>`}
 
 function tableHTML(data,showDates){
-  if(!data.length)return`<div class="empty">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>
-    <div class="empty-title">No stocks here yet</div>
-    <div class="empty-sub">Add stocks from the Add tab</div></div>`;
-  return`<div class="table-wrap"><table>
-    <thead><tr>
-      <th>Symbol</th><th>Price</th><th>Chg%</th><th>Priority</th><th>Freq</th><th>Source</th><th>Notes</th>
-      ${showDates?'<th>Dates</th>':''}
-      <th></th>
-    </tr></thead>
-    <tbody>${data.map(e=>`<tr>
-      <td><div class="td-sym">${e.ticker}</div>${e.name?`<div class="td-name">${e.name}</div>`:''}</td>
-      <td><span class="td-price">${e.price?'₹'+parseFloat(e.price).toLocaleString('en-IN',{maximumFractionDigits:2}):'—'}</span></td>
-      <td><span class="td-chg">${e.change||'—'}</span></td>
-      <td>${pBadge(e.priority)}</td>
-      <td>${fBadge(e.count)}</td>
-      <td>${(e.sources||[]).map(s=>`<span class="badge badge-src">${s}</span>`).join(' ')}</td>
-      <td><span class="td-note" title="${e.note||''}">${e.note||'—'}</span></td>
-      ${showDates?`<td style="font-size:11px;color:var(--hint);font-family:var(--mono);white-space:nowrap">${e.dates.join(' · ')}</td>`:''}
-      <td><div class="td-actions">
-        <button class="action-btn" onclick="openEditModal('${e.ticker}','${e.week}')" title="Edit">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
-        </button>
-        <button class="action-btn del" onclick="deleteTicker('${e.ticker}','${e.week}')" title="Remove">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div></td>
-    </tr>`).join('')}</tbody>
-  </table></div>`;
+  if(!data.length)return`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg><div class="empty-title">No stocks here yet</div><div class="empty-sub">Add stocks from the Add tab</div></div>`;
+  return`<div class="table-wrap"><table><thead><tr><th>Symbol</th><th>Price</th><th>Chg%</th><th>Priority</th><th>Freq</th><th>Source</th><th>Notes</th>${showDates?'<th>Dates</th>':''}<th></th></tr></thead><tbody>${data.map(e=>`<tr>
+    <td><div class="td-sym">${e.ticker}</div>${e.name?`<div class="td-name">${e.name}</div>`:''}</td>
+    <td><span class="td-price">${e.price?'₹'+parseFloat(e.price).toLocaleString('en-IN',{maximumFractionDigits:2}):'—'}</span></td>
+    <td><span class="td-chg">${e.change||'—'}</span></td>
+    <td>${pBadge(e.priority)}</td>
+    <td>${fBadge(e.count)}</td>
+    <td>${(e.sources||[]).map(s=>`<span class="badge badge-src">${s}</span>`).join(' ')}</td>
+    <td><span class="td-note" title="${e.note||''}">${e.note||'—'}</span></td>
+    ${showDates?`<td style="font-size:11px;color:var(--hint);font-family:var(--mono);white-space:nowrap">${e.dates.join(' · ')}</td>`:''}
+    <td><div class="td-actions">
+      <button class="action-btn" onclick="openEditModal('${e.ticker}','${e.week}')" title="Edit"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+      <button class="action-btn del" onclick="deleteTicker('${e.ticker}','${e.week}')" title="Remove"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+    </div></td>
+  </tr>`).join('')}</tbody></table></div>`;
 }
 
 function renderTodayTable(){
   const today=getTodayKey(),week=getWeekKey();
-  const data=load().filter(e=>e.week===week&&e.dates.includes(today));
-  document.getElementById('today-table').innerHTML=tableHTML(data,false);
+  document.getElementById('today-table').innerHTML=tableHTML(localData.filter(e=>e.week===week&&e.dates.includes(today)),false);
 }
 
 function renderReview(){
   const week=getWeekKey();
-  let data=load().filter(e=>e.week===week);
+  let data=localData.filter(e=>e.week===week);
   const sort=document.getElementById('sort-sel').value;
   const fp=document.getElementById('filter-p').value;
   const search=document.getElementById('search-input').value.trim().toUpperCase();
@@ -599,7 +718,7 @@ function renderReview(){
   else if(sort==='chg')data.sort((a,b)=>(parseFloat((b.change||'0').replace('%',''))||0)-(parseFloat((a.change||'0').replace('%',''))||0));
   else if(sort==='az')data.sort((a,b)=>a.ticker.localeCompare(b.ticker));
   else data.sort((a,b)=>b.addedAt-a.addedAt);
-  const all=load().filter(e=>e.week===week);
+  const all=localData.filter(e=>e.week===week);
   document.getElementById('s-unique').textContent=all.length;
   document.getElementById('s-repeats').textContent=all.filter(e=>e.count>1).length;
   document.getElementById('s-high').textContent=all.filter(e=>e.priority==='High').length;
@@ -609,234 +728,146 @@ function renderReview(){
 
 function renderArchive(){
   const week=getWeekKey();
-  const data=load().filter(e=>e.week!==week);
+  const data=localData.filter(e=>e.week!==week);
   const el=document.getElementById('archive-list');
-  if(!data.length){
-    el.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/></svg><div class="empty-title">No past weeks yet</div><div class="empty-sub">Previous weeks will appear here automatically</div></div>`;
-    return;
-  }
+  if(!data.length){el.innerHTML=`<div class="empty"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="21 8 21 21 3 21 3 8"/><rect x="1" y="3" width="22" height="5"/></svg><div class="empty-title">No past weeks yet</div><div class="empty-sub">Previous weeks appear here automatically</div></div>`;return}
   const byWeek={};
   data.forEach(e=>{if(!byWeek[e.week])byWeek[e.week]=[];byWeek[e.week].push(e)});
   el.innerHTML=Object.keys(byWeek).sort().reverse().map(w=>{
     const stocks=byWeek[w].sort((a,b)=>b.count-a.count);
     const high=stocks.filter(s=>s.priority==='High').length;
-    return`<div class="week-group">
-      <div class="week-group-hdr" onclick="toggleWeek('${w}')">
-        <span class="wg-title">${w}</span>
-        <span class="wg-meta">${stocks.length} stocks${high?' · '+high+' 🔴 High':''} &nbsp;▾</span>
-      </div>
-      <div id="wg-${w}" style="display:none">${tableHTML(stocks,true)}</div>
-    </div>`;
+    return`<div class="week-group"><div class="week-group-hdr" onclick="toggleWeek('${w}')"><span class="wg-title">${w}</span><span class="wg-meta">${stocks.length} stocks${high?' · '+high+' 🔴':''} ▾</span></div><div id="wg-${w}" style="display:none">${tableHTML(stocks,true)}</div></div>`;
   }).join('');
 }
 
 function toggleWeek(w){const el=document.getElementById('wg-'+w);el.style.display=el.style.display==='none'?'block':'none'}
 
+// ─── EDIT ────────────────────────────────────────────────────────────────────
 function openEditModal(ticker,week){
   editingTicker=ticker;editingWeek=week;
-  const entry=load().find(e=>e.ticker===ticker&&e.week===week);
+  const entry=localData.find(e=>e.ticker===ticker&&e.week===week);
   if(!entry)return;
   document.getElementById('edit-sym').textContent=ticker+(entry.name?' — '+entry.name:'');
   document.getElementById('edit-note').value=entry.note||'';
-  document.querySelectorAll('#edit-priority-btns .p-btn').forEach(b=>{
-    b.className='p-btn';
-    if(entry.priority&&b.dataset.p===entry.priority)b.classList.add('active-'+entry.priority.toLowerCase());
-  });
+  document.querySelectorAll('#edit-priority-btns .p-btn').forEach(b=>{b.className='p-btn';if(entry.priority&&b.dataset.p===entry.priority)b.classList.add('active-'+entry.priority.toLowerCase())});
   document.getElementById('edit-overlay').classList.add('show');
 }
 function hideEditModal(){document.getElementById('edit-overlay').classList.remove('show');editingTicker=null;editingWeek=null}
-function saveEdit(){
-  const data=load();
+async function saveEdit(){
+  const data=[...localData];
   const entry=data.find(e=>e.ticker===editingTicker&&e.week===editingWeek);
   if(entry){
     entry.note=document.getElementById('edit-note').value.trim();
     const ap=document.querySelector('#edit-priority-btns .p-btn[class*="active-"]');
     entry.priority=ap?ap.dataset.p:'';
-    save(data);showToast(editingTicker+' updated');
+    saveLocal(data);showToast(editingTicker+' updated');
   }
   hideEditModal();renderTodayTable();renderReview();
+  await syncToSheet(data);
 }
 
-function deleteTicker(ticker,week){
-  save(load().filter(e=>!(e.ticker===ticker&&e.week===week)));
-  renderTodayTable();renderReview();renderArchive();showToast(ticker+' removed');
+// ─── DELETE ──────────────────────────────────────────────────────────────────
+async function deleteTicker(ticker,week){
+  const data=localData.filter(e=>!(e.ticker===ticker&&e.week===week));
+  saveLocal(data);renderTodayTable();renderReview();renderArchive();
+  showToast(ticker+' removed');
+  await syncToSheet(data);
 }
 
 function showConfirm(type){
   pendingDelete=type;
-  const t={week:'Clear this week?',all:'Delete all data?'};
-  const m={week:'All stocks added this week will be removed. This cannot be undone.',all:'Every stock from all weeks will be permanently deleted.'};
+  const t={week:'Clear this week?',all:'Delete ALL data on all devices?'};
+  const m={week:'This week\'s stocks will be removed from all devices.',all:'Every stock from all weeks will be permanently deleted everywhere.'};
   document.getElementById('confirm-title').textContent=t[type];
   document.getElementById('confirm-msg').textContent=m[type];
   document.getElementById('confirm-overlay').classList.add('show');
 }
 function hideConfirm(){document.getElementById('confirm-overlay').classList.remove('show');pendingDelete=null}
-function confirmDelete(){
-  if(pendingDelete==='week'){const w=getWeekKey();save(load().filter(e=>e.week!==w));showToast('This week cleared')}
-  else{save([]);showToast('All data deleted')}
-  hideConfirm();renderTodayTable();
+async function confirmDelete(){
+  let data;
+  if(pendingDelete==='week'){const w=getWeekKey();data=localData.filter(e=>e.week!==w);showToast('This week cleared on all devices')}
+  else{data=[];showToast('All data deleted everywhere')}
+  saveLocal(data);hideConfirm();renderTodayTable();
+  await syncToSheet(data);
 }
 
-// ---- EXPORT MODAL ----
-function openExportModal(){
-  const data=load();
-  if(!data.length){showToast('No data to export');return}
-  // Collect all unique dates across all entries, sorted desc
-  const allDates=new Set();
-  data.forEach(e=>(e.dates||[]).forEach(d=>allDates.add(d)));
-  const sortedDates=[...allDates].sort().reverse();
-  // Count stocks per date
-  const dateCounts={};
-  sortedDates.forEach(d=>{dateCounts[d]=data.filter(e=>(e.dates||[]).includes(d)).length});
+// ─── CHANGE URL ──────────────────────────────────────────────────────────────
+function showChangeUrl(){document.getElementById('change-url-input').value=scriptUrl;document.getElementById('change-url-overlay').classList.add('show')}
+function hideChangeUrl(){document.getElementById('change-url-overlay').classList.remove('show')}
+function applyNewUrl(){
+  const url=document.getElementById('change-url-input').value.trim();
+  if(!url||!url.startsWith('https://script.google.com')){showToast('Invalid URL');return}
+  scriptUrl=url;localStorage.setItem('wl_script_url',url);
+  const urlShort=url.length>40?url.slice(0,38)+'…':url;
+  document.getElementById('script-url-display').textContent=urlShort;
+  hideChangeUrl();forceSyncFromSheet();
+}
 
-  document.getElementById('export-date-list').innerHTML=sortedDates.map(d=>`
+// ─── EXPORT ──────────────────────────────────────────────────────────────────
+function openExportModal(){
+  if(!localData.length){showToast('No data to export');return}
+  const allDates=new Set();
+  localData.forEach(e=>(e.dates||[]).forEach(d=>allDates.add(d)));
+  const sorted=[...allDates].sort().reverse();
+  const counts={};sorted.forEach(d=>{counts[d]=localData.filter(e=>(e.dates||[]).includes(d)).length});
+  document.getElementById('export-date-list').innerHTML=sorted.map(d=>`
     <label class="date-check-item">
       <input type="checkbox" value="${d}" checked onchange="updateExportSummary()">
-      <span class="date-check-label">
-        <strong>${formatDateDisplay(d)}</strong>
-        <span style="font-size:11px;color:var(--hint);font-family:var(--mono);margin-left:4px">${getWeekKey(new Date(d+'T00:00:00'))}</span>
-      </span>
-      <span class="date-check-count">${dateCounts[d]} stocks</span>
+      <span class="date-check-label"><strong>${formatDateDisplay(d)}</strong><span style="font-size:11px;color:var(--hint);font-family:var(--mono);margin-left:6px">${getWeekKey(new Date(d+'T00:00:00'))}</span></span>
+      <span class="date-check-count">${counts[d]} stocks</span>
     </label>`).join('');
   document.getElementById('export-overlay').classList.add('show');
   updateExportSummary();
 }
 function hideExportModal(){document.getElementById('export-overlay').classList.remove('show')}
-function selectAllDates(val){
-  document.querySelectorAll('#export-date-list input[type=checkbox]').forEach(cb=>cb.checked=val);
-  updateExportSummary();
-}
+function selectAllDates(val){document.querySelectorAll('#export-date-list input[type=checkbox]').forEach(cb=>cb.checked=val);updateExportSummary()}
 function updateExportSummary(){
-  const selected=getSelectedDates();
-  const data=load();
-  if(!selected.length){document.getElementById('export-summary').textContent='No dates selected';return}
-  const matching=data.filter(e=>(e.dates||[]).some(d=>selected.includes(d)));
-  document.getElementById('export-summary').textContent=`${selected.length} date${selected.length>1?'s':''} selected · ${matching.length} unique stock${matching.length!==1?'s':''} will be exported`;
+  const sel=getSelectedDates();
+  if(!sel.length){document.getElementById('export-summary').textContent='No dates selected';return}
+  const matching=localData.filter(e=>(e.dates||[]).some(d=>sel.includes(d)));
+  document.getElementById('export-summary').textContent=`${sel.length} date${sel.length>1?'s':''} selected · ${matching.length} unique stocks will be exported`;
 }
-function getSelectedDates(){
-  return [...document.querySelectorAll('#export-date-list input[type=checkbox]:checked')].map(cb=>cb.value);
-}
+function getSelectedDates(){return[...document.querySelectorAll('#export-date-list input[type=checkbox]:checked')].map(cb=>cb.value)}
 
 function doExcelExport(){
   const selected=getSelectedDates();
   if(!selected.length){showToast('Select at least one date');return}
-  const data=load();
-
   const wb=XLSX.utils.book_new();
 
-  // --- Sheet 1: Summary (stocks that appear in selected dates) ---
-  const matching=data.filter(e=>(e.dates||[]).some(d=>selected.includes(d)));
+  // Sheet 1: Summary
+  const matching=localData.filter(e=>(e.dates||[]).some(d=>selected.includes(d)));
   const summaryRows=[
     ['WATCHLIST TRACKER — EXPORT SUMMARY'],
-    ['Exported on:', new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})],
-    ['Dates included:', selected.sort().join(', ')],
-    ['Total unique stocks:', matching.length],
-    []
+    ['Exported on:',new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'})],
+    ['Dates included:',selected.sort().join(', ')],
+    ['Total unique stocks:',matching.length],
+    [],
+    ['#','Symbol','Stock Name','Price (₹)','% Change','Priority','Times Seen','Dates Spotted','Source(s)','Notes']
   ];
-
-  const headers=['#','Symbol','Stock Name','Price (₹)','% Change','Priority','Times Seen','Dates Spotted','Source(s)','Notes'];
-  summaryRows.push(headers);
-
-  matching.sort((a,b)=>{
-    const pOrd={High:0,Medium:1,Watch:2,'':3};
-    return (pOrd[a.priority||'']||3)-(pOrd[b.priority||'']||3)||b.count-a.count;
-  }).forEach((e,i)=>{
-    const datesInSelection=(e.dates||[]).filter(d=>selected.includes(d));
-    summaryRows.push([
-      i+1,
-      e.ticker,
-      e.name||'',
-      e.price?parseFloat(e.price):'',
-      e.change||'',
-      e.priority||'',
-      datesInSelection.length,
-      datesInSelection.sort().join(' | '),
-      (e.sources||[]).join(', '),
-      e.note||''
-    ]);
+  const pOrd={High:0,Medium:1,Watch:2,'':3};
+  matching.sort((a,b)=>(pOrd[a.priority||'']||3)-(pOrd[b.priority||'']||3)||b.count-a.count).forEach((e,i)=>{
+    const din=(e.dates||[]).filter(d=>selected.includes(d));
+    summaryRows.push([i+1,e.ticker,e.name||'',e.price?parseFloat(e.price):'',e.change||'',e.priority||'',din.length,din.sort().join(' | '),(e.sources||[]).join(', '),e.note||'']);
   });
+  const ws=XLSX.utils.aoa_to_sheet(summaryRows);
+  ws['!cols']=[{wch:4},{wch:14},{wch:36},{wch:12},{wch:10},{wch:10},{wch:12},{wch:36},{wch:20},{wch:40}];
+  XLSX.utils.book_append_sheet(wb,ws,'Summary');
 
-  const wsSummary=XLSX.utils.aoa_to_sheet(summaryRows);
-
-  // Column widths for summary
-  wsSummary['!cols']=[
-    {wch:4},{wch:14},{wch:36},{wch:12},{wch:10},{wch:10},{wch:12},{wch:36},{wch:20},{wch:40}
-  ];
-
-  // Style header row (row 6 = index 5)
-  const headerRowIdx=5;
-  headers.forEach((_,ci)=>{
-    const cell=XLSX.utils.encode_cell({r:headerRowIdx,c:ci});
-    if(!wsSummary[cell])wsSummary[cell]={};
-    wsSummary[cell].s={
-      font:{bold:true,color:{rgb:'FFFFFF'},name:'Arial',sz:10},
-      fill:{fgColor:{rgb:'1F4E79'}},
-      alignment:{horizontal:'center',vertical:'center'},
-      border:{bottom:{style:'thin',color:{rgb:'AAAAAA'}}}
-    };
-  });
-
-  // Style title
-  if(wsSummary['A1'])wsSummary['A1'].s={font:{bold:true,sz:14,name:'Arial',color:{rgb:'1F4E79'}}};
-
-  // Style data rows alternating
-  matching.forEach((_,i)=>{
-    const r=headerRowIdx+1+i;
-    const isAlt=i%2===1;
-    for(let c=0;c<headers.length;c++){
-      const cell=XLSX.utils.encode_cell({r,c});
-      if(!wsSummary[cell])wsSummary[cell]={v:'',t:'s'};
-      wsSummary[cell].s={
-        fill:{fgColor:{rgb:isAlt?'EEF3F8':'FFFFFF'}},
-        font:{name:'Arial',sz:10},
-        alignment:{vertical:'center',wrapText:c===2||c===7||c===9}
-      };
-    }
-    // Price column: number format
-    const priceCell=XLSX.utils.encode_cell({r,c:3});
-    if(wsSummary[priceCell]&&wsSummary[priceCell].v)wsSummary[priceCell].z='#,##0.00';
-    // Priority coloring
-    const pCell=XLSX.utils.encode_cell({r,c:5});
-    if(wsSummary[pCell]){
-      const pv=wsSummary[pCell].v;
-      const pColors={High:'C00000',Medium:'ED7D31',Watch:'2E75B6'};
-      if(pColors[pv])wsSummary[pCell].s={...wsSummary[pCell].s,font:{...wsSummary[pCell].s?.font,bold:true,color:{rgb:pColors[pv]}}};
-    }
-  });
-
-  // Freeze header row
-  wsSummary['!freeze']={xSplit:0,ySplit:headerRowIdx+1};
-  XLSX.utils.book_append_sheet(wb,wsSummary,'Summary');
-
-  // --- Sheet 2: Date-wise breakdown ---
-  const dateSheet=[
-    ['DATE-WISE BREAKDOWN'],
-    []
-  ];
+  // Sheet 2: Date-wise
+  const dateRows=[['DATE-WISE BREAKDOWN'],[]];
   selected.sort().forEach(d=>{
-    const dayStocks=data.filter(e=>(e.dates||[]).includes(d));
-    dateSheet.push([formatDateDisplay(d)+' — '+dayStocks.length+' stocks']);
-    dateSheet.push(['Symbol','Stock Name','Price (₹)','% Change','Priority','Source(s)','Notes']);
-    dayStocks.sort((a,b)=>a.ticker.localeCompare(b.ticker)).forEach(e=>{
-      dateSheet.push([
-        e.ticker,
-        e.name||'',
-        e.price?parseFloat(e.price):'',
-        e.change||'',
-        e.priority||'',
-        (e.sources||[]).join(', '),
-        e.note||''
-      ]);
+    const ds=localData.filter(e=>(e.dates||[]).includes(d));
+    dateRows.push([formatDateDisplay(d)+' — '+ds.length+' stocks']);
+    dateRows.push(['Symbol','Stock Name','Price (₹)','% Change','Priority','Source(s)','Notes']);
+    ds.sort((a,b)=>a.ticker.localeCompare(b.ticker)).forEach(e=>{
+      dateRows.push([e.ticker,e.name||'',e.price?parseFloat(e.price):'',e.change||'',e.priority||'',(e.sources||[]).join(', '),e.note||'']);
     });
-    dateSheet.push([]);
+    dateRows.push([]);
   });
+  const ws2=XLSX.utils.aoa_to_sheet(dateRows);
+  ws2['!cols']=[{wch:14},{wch:36},{wch:12},{wch:10},{wch:10},{wch:20},{wch:40}];
+  XLSX.utils.book_append_sheet(wb,ws2,'Date-wise');
 
-  const wsDate=XLSX.utils.aoa_to_sheet(dateSheet);
-  wsDate['!cols']=[{wch:14},{wch:36},{wch:12},{wch:10},{wch:10},{wch:20},{wch:40}];
-  if(wsDate['A1'])wsDate['A1'].s={font:{bold:true,sz:14,name:'Arial',color:{rgb:'1F4E79'}}};
-  XLSX.utils.book_append_sheet(wb,wsDate,'Date-wise');
-
-  // --- Generate and download ---
   const fname='Watchlist_'+selected[0]+'_to_'+selected[selected.length-1]+'.xlsx';
   XLSX.writeFile(wb,fname);
   hideExportModal();
@@ -845,11 +876,10 @@ function doExcelExport(){
 
 function exportCSV(){
   const week=getWeekKey();
-  const data=load().filter(e=>e.week===week);
+  const data=localData.filter(e=>e.week===week);
   if(!data.length){showToast('Nothing to export');return}
   const rows=[['Ticker','Stock Name','Price','% Change','Priority','Notes','Week','Times Added','Dates','Sources']];
-  data.sort((a,b)=>b.count-a.count).forEach(e=>
-    rows.push([e.ticker,e.name||'',e.price||'',e.change||'',e.priority||'',e.note||'',e.week,e.count,e.dates.join('|'),(e.sources||[]).join('|')]));
+  data.sort((a,b)=>b.count-a.count).forEach(e=>rows.push([e.ticker,e.name||'',e.price||'',e.change||'',e.priority||'',e.note||'',e.week,e.count,e.dates.join('|'),(e.sources||[]).join('|')]));
   const csv=rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\n');
   const blob=new Blob([csv],{type:'text/csv'});
   const url=URL.createObjectURL(blob);
@@ -857,12 +887,7 @@ function exportCSV(){
   showToast('CSV downloaded');
 }
 
-// Init
-const now=new Date();
-document.getElementById('date-label').textContent=now.toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-document.getElementById('week-label').textContent=getWeekKey();
-document.getElementById('date-input').value=getTodayKey();
-renderTodayTable();
+init();
 </script>
 </body>
 </html>
